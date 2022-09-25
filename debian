@@ -13,3 +13,6 @@ tasksel tasksel/first multiselect
 
 Make grub install automatically to the MBR if no other operating system is detected on the machine.
 d-i grub-installer/only_debian boolean true
+
+d-i preseed/late_command string wget \
+    https://github.com/Calchan/debian-install-scripts/archive/refs/heads/master.tar.gz
