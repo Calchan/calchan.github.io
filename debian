@@ -1,0 +1,15 @@
+# Install Debian testing.
+d-i mirror/suite string testing
+d-i mirror/udeb/suite string testing
+
+# Skip creation of a root account (normal user account will be able to use sudo).
+d-i passwd/root-login boolean false
+
+# Disable popcon question.
+popularity-contest popularity-contest/participate boolean false
+
+# Minimal install.
+tasksel tasksel/first multiselect
+
+Make grub install automatically to the MBR if no other operating system is detected on the machine.
+d-i grub-installer/only_debian boolean true
