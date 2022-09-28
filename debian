@@ -16,4 +16,8 @@ d-i grub-installer/only_debian boolean true
 
 d-i preseed/late_command string wget \
     https://github.com/Calchan/debian-install-scripts/archive/refs/heads/main.tar.gz; \
-    tar xfz main.tar.gz
+    tar xfz main.tar.gz; \
+    mv debian-install-scripts-main /target/tmp; \
+    echo -e "!#/bin/sh\nin-target --pass-stdout /tmp/debian-install-scripts-main/install" \
+    > /bin/install; \
+    chmod a+rx /bin/install
