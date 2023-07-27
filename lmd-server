@@ -1,0 +1,26 @@
+d-i debian-installer/locale string en_US
+
+d-i netcfg/wireless_wep string
+
+d-i hw-detect/load_firmware boolean true
+
+d-i passwd/make-user boolean false
+
+# Disable popcon question.
+popularity-contest popularity-contest/participate boolean false
+
+# Minimal install.
+tasksel tasksel/first multiselect
+
+# Make grub install automatically to the MBR if no other operating system is detected on the machine.
+d-i grub-installer/only_debian boolean true
+d-i grub-installer/bootdev string default
+
+d-i preseed/late_command string wget \
+    https://github.com/Calchan/debian-install-scripts/archive/refs/heads/main.tar.gz; \
+    tar xfz main.tar.gz; \
+    cp -rf debian-install-scripts-main /target/tmp; \
+    echo -e "!#/bin/sh\nin-target --pass-stdout /tmp/debian-install-scripts-main/lmd-server" \
+    > /bin/final-setup; \
+    chmod a+rx /bin/final-setup; \
+    /bin/final-setup
