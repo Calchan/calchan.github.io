@@ -14,6 +14,6 @@ d-i preseed/late_command string wget \
     https://github.com/Calchan/debian-install-scripts/archive/refs/heads/main.tar.gz; \
     tar xfz main.tar.gz; \
     cp -rf debian-install-scripts-main /target/tmp; \
-    echo -e "!#/bin/sh\nin-target --pass-stdout /tmp/debian-install-scripts-main/install" \
+    echo -e "#!/bin/sh\nin-target --pass-stdout /tmp/debian-install-scripts-main/install" \
     > /bin/finish; \
     chmod a+rx /bin/finish
