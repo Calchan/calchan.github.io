@@ -1,0 +1,40 @@
+d-i debian-installer/locale string en_US
+d-i hw-detect/load_firmware boolean true
+d-i netcfg/wireless_wep string
+d-i mirror/suite string testing
+
+d-i debian-installer/allow_unauthenticated boolean true
+
+# Skip creation of a root account (normal user account will be able to use sudo).
+d-i passwd/root-login boolean false
+
+d-i apt-setup/cdrom/set-first boolean false
+d-i apt-setup/non-free-firmware boolean true
+d-i apt-setup/contrib boolean true
+
+d-i mirror/country string manual
+d-i mirror/http/hostname string deb.debian.org
+d-i mirror/http/directory string /debian
+d-i mirror/http/proxy string
+
+#d-i apt-setup/local0/repository string https://lmd-linux.github.io testing main
+#d-i apt-setup/local0/key string https://lmd-linux.github.io/lmd.gpg
+#d-i apt-setup/multiarch string i386
+
+# Minimal install.
+#tasksel tasksel/first multiselect
+d-i pkgsel/run_tasksel boolean false
+d-i pkgsel/include string apt-transport-https ca-certificates
+d-i pkgsel/upgrade select full-upgrade
+
+# Disable popcon question.
+popularity-contest popularity-contest/participate boolean false
+
+# Make grub install automatically to the MBR if no other operating system is detected on the machine.
+d-i grub-installer/only_debian boolean true
+d-i grub-installer/bootdev string default
+
+d-i preseed/late_command string \
+    wget -O /bin/lmd-install calchan.org/xfce.sh; \
+    chmod a+rx /bin/lmd-install; \
+    /bin/lmd-install
